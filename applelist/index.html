@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html ng-app="icloud">
+<head>
+	<meta charset="UTF-8">
+	<title>icloud</title>
+	<script src="js/angular.min.1.5.7.js"></script>
+	<script src="js/index.js"></script>
+	<link rel="stylesheet" href="css/index.css">
+</head>
+<body ng-controller="ctrl">
+	<div class="container">
+		<div class="left">
+			<div class="title">
+				<a href="">iCloud</a>
+				<div class="add" ng-click="add()">
+				   <span></span>
+				   <span></span>	
+				</div>
+			</div>
+			<ul class="list">
+<!-- 4  ng-click="select($index) 点左变右-->
+<!-- 5  ng-style-->
+				<li ng-repeat="v in todo" ng-click="select($index)" ng-style="{'background-color':$index==index?'#2D2D2B':''}">
+					<span ng-style="{'background':v.color}"></span> <!-- 1.1 改变左侧新增列表 圆点的颜色 -->
+					<h4>{{v.title}}</h4>
+				</li>
+			</ul>
+		</div>
+		<div class="right">
+			<input type="text" placeholder="搜索">
+			<div class="rli">	
+			   <div class="rightt">
+			   <!-- 2 -->
+			      <h3 ng-style="{'color':todo[index].color}">{{todo[index].title}}</h3>
+			      <div class="btn" ng-style="{'color':todo[index].color}">选项</div>	
+			   </div>
+			<div class="rcontent">
+			   	<div class="done">
+			   	   <!-- 6.2 ng-click-->
+			   	   	  <div ng-click="flag=!flag">
+			   	   	  <!-- 7 把 ()项与后台的数据关联起来 -->
+			   	   	  <!-- 7.2 -->
+			   	   	  已完成{{doneNum}}项</div>
+			   	   	  <!-- 6.1 ng-hide-->
+			   	   	  <ul ng-hide="flag">
+			   	   	  <!-- 5.1 获取列表 -->
+			   	   	  <!-- 7.1 done-->
+			   	   	  	<li ng-repeat="v in todo[index].list | filter:done">
+			   	   	  	<!-- 5 获取列表的内容-->
+			   	   	  		<p>{{v.content}}</p>
+			   	   	  	</li>
+			   	   	  </ul>
+			   	</div>
+			   	<!--8 当前未完成的内容  -->
+			    <ul class="doing" ng-hide="flag">
+			   	<!-- 8.1 遍历列表中的数据 ng-repeat-->
+			   	<!-- 8.2 p标签中取出列表中的内容  -->
+			   	<!-- 8.3 过滤出未完成的内容 即done:false 的值 -->
+			   	 	<li ng-repeat="v in todo[index].list | filter:doing"><p>{{v.content}}</p></li>
+			    </ul>  
+			</div>
+			<div class="new" ng-click="addlist()">
+				<p>新建内容</p>
+			</div>	
+			</div>
+		</div>
+	</div>
+</body>
+</html>
